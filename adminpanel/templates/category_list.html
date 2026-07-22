@@ -1,0 +1,339 @@
+{% include "sidebar.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Category Management | FoodieHub</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#f5f7fb;
+}
+
+/* Main Content */
+
+.main-content{
+margin-left:270px;
+width:calc(100% - 270px);
+min-height:100vh;
+transition:.3s;
+}
+
+/* Header */
+
+.header{
+background:linear-gradient(135deg,#ff6b35,#ff8c42);
+color:white;
+padding:30px 40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+box-shadow:0 10px 25px rgba(0,0,0,.12);
+}
+
+.header h1{
+font-size:32px;
+}
+
+.add-btn{
+text-decoration:none;
+background:white;
+color:#ff6b35;
+padding:14px 24px;
+border-radius:10px;
+font-weight:600;
+transition:.3s;
+}
+
+.add-btn:hover{
+background:#222;
+color:white;
+}
+
+/* Grid */
+
+.container{
+padding:35px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:25px;
+}
+
+/* Card */
+
+.card{
+
+background:white;
+
+border-radius:18px;
+
+overflow:hidden;
+
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+transition:.3s;
+
+}
+
+.card:hover{
+
+transform:translateY(-6px);
+
+box-shadow:0 15px 35px rgba(0,0,0,.15);
+
+}
+
+.card img{
+
+width:100%;
+
+height:220px;
+
+object-fit:cover;
+
+}
+
+.content{
+
+padding:20px;
+
+text-align:center;
+
+}
+
+.content h2{
+
+font-size:24px;
+
+margin-bottom:18px;
+
+color:#333;
+
+}
+
+/* Buttons */
+
+.actions{
+
+display:flex;
+
+gap:12px;
+
+justify-content:center;
+
+}
+
+.edit{
+
+background:#0d6efd;
+
+}
+
+.delete{
+
+background:#dc3545;
+
+}
+
+.actions a{
+
+flex:1;
+
+padding:12px;
+
+text-decoration:none;
+
+color:white;
+
+border-radius:8px;
+
+font-weight:600;
+
+transition:.3s;
+
+}
+
+.actions a:hover{
+
+opacity:.9;
+
+transform:translateY(-2px);
+
+}
+
+/* Empty */
+
+.empty{
+
+grid-column:1/-1;
+
+background:white;
+
+padding:80px;
+
+border-radius:15px;
+
+text-align:center;
+
+font-size:24px;
+
+color:#777;
+
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+/* Responsive */
+
+@media(max-width:992px){
+
+.main-content{
+
+margin-left:80px;
+
+width:calc(100% - 80px);
+
+}
+
+}
+
+@media(max-width:768px){
+
+.main-content{
+
+margin-left:80px;
+
+width:calc(100% - 80px);
+
+}
+
+.header{
+
+padding:20px;
+
+}
+
+.header h1{
+
+font-size:26px;
+
+margin-bottom:15px;
+
+}
+
+.container{
+
+padding:15px;
+
+}
+
+.card img{
+
+height:180px;
+
+}
+
+.actions{
+
+flex-direction:column;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="main-content">
+
+<div class="header">
+
+<h1>
+<i class="fa-solid fa-layer-group"></i>
+Category Management
+</h1>
+
+<a href="{% url 'category_add' %}" class="add-btn">
+
+<i class="fa-solid fa-plus"></i>
+
+Add Category
+
+</a>
+
+</div>
+
+<div class="container">
+
+{% for category in categories %}
+
+<div class="card">
+
+<img src="{{ category.image.url }}" alt="{{ category.category_name }}">
+
+<div class="content">
+
+<h2>{{ category.category_name }}</h2>
+
+<div class="actions">
+
+<a href="{% url 'category_edit' category.id %}" class="edit">
+
+<i class="fa-solid fa-pen"></i>
+
+Edit
+
+</a>
+
+<a href="{% url 'category_delete' category.id %}" class="delete">
+
+<i class="fa-solid fa-trash"></i>
+
+Delete
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<div class="empty">
+
+🍽️ No Categories Found
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Delete Category | FoodieHub</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    padding:20px;
+}
+
+/* Card */
+
+.delete-card{
+
+    width:100%;
+    max-width:520px;
+
+    background:white;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.12);
+
+}
+
+/* Header */
+
+.card-header{
+
+    background:linear-gradient(135deg,#ff6b35,#ff914d);
+
+    color:white;
+
+    text-align:center;
+
+    padding:35px;
+
+}
+
+.card-header i{
+
+    font-size:70px;
+
+    margin-bottom:15px;
+
+}
+
+.card-header h2{
+
+    font-size:30px;
+
+    font-weight:700;
+
+}
+
+/* Body */
+
+.card-body{
+
+    padding:35px;
+
+    text-align:center;
+
+}
+
+.card-body p{
+
+    font-size:18px;
+
+    color:#555;
+
+    line-height:1.7;
+
+}
+
+.card-body strong{
+
+    color:#ff6b35;
+
+    font-size:22px;
+
+}
+
+/* Buttons */
+
+.actions{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    margin-top:35px;
+
+}
+
+button{
+
+    background:#dc3545;
+
+    color:white;
+
+    border:none;
+
+    padding:14px 28px;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    background:#bb2d3b;
+
+    transform:translateY(-2px);
+
+}
+
+.cancel{
+
+    background:#6c757d;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:14px 28px;
+
+    border-radius:10px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.cancel:hover{
+
+    background:#495057;
+
+    transform:translateY(-2px);
+
+}
+
+/* Mobile */
+
+@media(max-width:576px){
+
+.card-header{
+
+    padding:25px;
+
+}
+
+.card-header h2{
+
+    font-size:24px;
+
+}
+
+.card-header i{
+
+    font-size:55px;
+
+}
+
+.card-body{
+
+    padding:25px;
+
+}
+
+.card-body p{
+
+    font-size:16px;
+
+}
+
+.actions{
+
+    flex-direction:column;
+
+}
+
+button,
+.cancel{
+
+    width:100%;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="delete-card">
+
+<div class="card-header">
+
+<i class="fa-solid fa-triangle-exclamation"></i>
+
+<h2>Delete Category</h2>
+
+</div>
+
+<div class="card-body">
+
+<p>
+
+Are you sure you want to delete
+
+<br><br>
+
+<strong>{{ category.category_name }}</strong>
+
+?
+
+</p>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="actions">
+
+<button type="submit">
+
+<i class="fa-solid fa-trash"></i>
+
+Delete
+
+</button>
+
+<a href="{% url 'category_list' %}" class="cancel">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Cancel
+
+</a>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

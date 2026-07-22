@@ -1,0 +1,428 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kitchen Dashboard</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+            background:#f4f7fb;
+            display:flex;
+        }
+
+        .page-content{
+            margin-left:270px;
+            width:calc(100% - 270px);
+            min-height:100vh;
+        }
+
+        /* Header */
+
+        .header{
+            background:#ff6b35;
+            color:white;
+            text-align:center;
+            padding:25px;
+            box-shadow:0 5px 15px rgba(0,0,0,.15);
+            border-radius:0 0 18px 18px;
+        }
+
+        .header h1{
+            font-size:38px;
+        }
+
+        .header p{
+            margin-top:8px;
+            opacity:.9;
+        }
+
+        /* Grid */
+
+        .container{
+            padding:30px;
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+            gap:25px;
+        }
+
+        /* Card */
+
+        .card{
+            background:white;
+            border-radius:18px;
+            padding:22px;
+            box-shadow:0 10px 25px rgba(0,0,0,.08);
+            transition:.3s;
+            width:100%;
+        }
+
+        .card:hover{
+            transform:translateY(-5px);
+            box-shadow:0 15px 35px rgba(0,0,0,.15);
+        }
+
+        .top{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .top h2{
+            color:#222;
+            margin-bottom:5px;
+        }
+
+        .top h3{
+            color:#666;
+            font-weight:500;
+        }
+
+        /* Status */
+
+        .status{
+            padding:8px 18px;
+            border-radius:30px;
+            color:white;
+            font-size:14px;
+            font-weight:600;
+        }
+
+        .pending{
+            background:#dc3545;
+        }
+
+        .preparing{
+            background:#fd7e14;
+        }
+
+        .ready{
+            background:#28a745;
+        }
+
+        .completed{
+            background:#0d6efd;
+        }
+
+        /* Items */
+
+        hr{
+            margin:18px 0;
+            border:none;
+            border-top:1px solid #eee;
+        }
+
+        .card h4{
+            margin-bottom:15px;
+            color:#333;
+        }
+
+        ul{
+            list-style:none;
+        }
+
+        ul li{
+            display:flex;
+            justify-content:space-between;
+            padding:10px 0;
+            border-bottom:1px dashed #ddd;
+            color:#555;
+        }
+
+        .price{
+            margin-top:20px;
+            font-size:22px;
+            font-weight:bold;
+            color:#28a745;
+        }
+
+        /* Buttons */
+
+        .buttons{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:10px;
+            margin-top:25px;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            border:none;
+            border-radius:8px;
+            color:white;
+            cursor:pointer;
+            font-size:15px;
+            font-weight:600;
+            transition:.3s;
+        }
+
+        button:hover{
+            transform:translateY(-2px);
+        }
+
+        .prepare{
+            background:#fd7e14;
+        }
+
+        .prepare:hover{
+            background:#e36b09;
+        }
+
+        .ready-btn{
+            background:#28a745;
+        }
+
+        .ready-btn:hover{
+            background:#218838;
+        }
+
+        .complete{
+            background:#0d6efd;
+        }
+
+        .complete:hover{
+            background:#0b5ed7;
+        }
+
+        /* Empty */
+
+        .empty{
+            grid-column:1/-1;
+            text-align:center;
+            background:white;
+            padding:60px;
+            border-radius:15px;
+            box-shadow:0 10px 25px rgba(0,0,0,.08);
+        }
+
+        .empty h2{
+            color:#777;
+        }
+
+        /* Mobile */
+
+        @media(max-width:992px){
+
+            .page-content{
+                margin-left:80px;
+                width:calc(100% - 80px);
+            }
+
+        }
+
+        @media(max-width:768px){
+
+            .page-content{
+                margin-left:80px;
+                width:calc(100% - 80px);
+            }
+
+            .container{
+                grid-template-columns:1fr;
+                padding:15px;
+            }
+
+            .header h1{
+                font-size:28px;
+            }
+
+            .buttons{
+                grid-template-columns:1fr;
+            }
+
+            .top{
+                flex-direction:column;
+                align-items:flex-start;
+                gap:15px;
+            }
+
+            .price{
+                font-size:20px;
+            }
+
+        }
+    </style>
+
+</head>
+<body>
+{% include "sidebar.html" %}
+
+<div class="page-content">
+
+    <div class="header">
+
+        <h1>🍽 Kitchen Dashboard</h1>
+
+        <p>Live Restaurant Orders</p>
+
+        <span id="orderBadge"
+            class="badge bg-danger rounded-pill">
+            0
+        </span>
+
+    </div>
+
+    <div class="container">
+
+    {% for order in orders %}
+
+    <div class="card">
+
+        <div class="top">
+
+            <div>
+                <h2>{{ order.order_number }}</h2>
+                <h3>🪑 Table {{ order.table.table_number }}</h3>
+            </div>
+
+            {% if order.status == "Pending" %}
+                <span class="status pending">Pending</span>
+
+            {% elif order.status == "Preparing" %}
+                <span class="status preparing">Preparing</span>
+
+            {% elif order.status == "Ready" %}
+                <span class="status ready">Ready</span>
+
+            {% else %}
+                <span class="status completed">Completed</span>
+
+            {% endif %}
+
+        </div>
+
+        <hr>
+
+        <h4>Order Items</h4>
+
+        <ul>
+
+            {% for item in order.orderitem_set.all %}
+
+            <li>
+                {{ item.food.food_name }}
+                <strong>× {{ item.quantity }}</strong>
+            </li>
+
+            {% endfor %}
+
+        </ul>
+
+        <div class="price">
+
+            Total : ₹{{ order.total_amount }}
+
+        </div>
+
+        <div class="buttons">
+
+            <a href="{% url 'change_status' order.id 'Preparing' %}">
+                <button class="prepare">Preparing</button>
+            </a>
+
+            <a href="{% url 'change_status' order.id 'Ready' %}">
+                <button class="ready-btn">Ready</button>
+            </a>
+
+            <a href="{% url 'change_status' order.id 'Completed' %}">
+                <button class="complete">Completed</button>
+            </a>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="empty">
+
+        <h2>No Active Orders 🍽</h2>
+
+    </div>
+
+    {% endfor %}
+
+    </div>
+
+</div>
+
+
+<div id="popup"
+     class="toast-container position-fixed top-0 end-0 p-3">
+
+<div class="toast">
+
+<div class="toast-header bg-success text-white">
+
+<strong>🍽 New Order</strong>
+
+</div>
+
+<div class="toast-body">
+
+A new customer order has arrived.
+
+</div>
+
+</div>
+
+</div>
+
+<audio id="notificationSound">
+    <source
+        src="{% static 'sounds/notification.mp3' %}"
+        type="audio/mpeg">
+</audio>
+
+
+<script>
+
+let lastOrder = 0;
+
+function checkNotifications(){
+
+fetch("/kitchen/notifications/")
+
+.then(response=>response.json())
+
+.then(data=>{
+
+document.getElementById("orderBadge").innerHTML=data.count;
+
+if(data.latest>lastOrder){
+
+lastOrder=data.latest;
+
+document.getElementById("notificationSound").play();
+
+const toast=new bootstrap.Toast(document.querySelector(".toast"));
+
+toast.show();
+
+}
+
+});
+
+}
+
+setInterval(checkNotifications,3000);
+
+checkNotifications();
+
+</script>
+
+</body>
+</html>

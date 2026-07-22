@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Delete Food | FoodieHub</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+/* Card */
+
+.delete-card{
+
+    width:100%;
+    max-width:550px;
+
+    background:#fff;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.12);
+
+}
+
+/* Header */
+
+.card-header{
+
+    background:linear-gradient(135deg,#ff6b35,#ff914d);
+
+    color:#fff;
+
+    text-align:center;
+
+    padding:35px;
+
+}
+
+.card-header i{
+
+    font-size:65px;
+
+    margin-bottom:15px;
+
+}
+
+.card-header h2{
+
+    font-size:30px;
+
+    font-weight:700;
+
+}
+
+.card-header p{
+
+    margin-top:8px;
+
+    opacity:.9;
+
+}
+
+/* Body */
+
+.card-body{
+
+    padding:35px;
+
+    text-align:center;
+
+}
+
+.card-body p{
+
+    font-size:18px;
+
+    color:#555;
+
+    line-height:1.8;
+
+}
+
+.food-name{
+
+    display:inline-block;
+
+    margin-top:10px;
+
+    color:#ff6b35;
+
+    font-size:24px;
+
+    font-weight:700;
+
+}
+
+/* Warning */
+
+.warning{
+
+    margin:25px 0;
+
+    background:#fff3cd;
+
+    color:#856404;
+
+    border-left:5px solid #ffc107;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    font-size:15px;
+
+}
+
+/* Buttons */
+
+.button-group{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    margin-top:30px;
+
+    flex-wrap:wrap;
+
+}
+
+.delete-btn{
+
+    background:#dc3545;
+
+    color:white;
+
+    border:none;
+
+    padding:14px 30px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.delete-btn:hover{
+
+    background:#bb2d3b;
+
+    transform:translateY(-2px);
+
+}
+
+.cancel-btn{
+
+    background:#6c757d;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:14px 30px;
+
+    border-radius:10px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.cancel-btn:hover{
+
+    background:#495057;
+
+    transform:translateY(-2px);
+
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+.card-header{
+
+    padding:25px;
+
+}
+
+.card-header h2{
+
+    font-size:26px;
+
+}
+
+.card-header i{
+
+    font-size:55px;
+
+}
+
+.card-body{
+
+    padding:25px;
+
+}
+
+.card-body p{
+
+    font-size:16px;
+
+}
+
+.food-name{
+
+    font-size:22px;
+
+}
+
+.button-group{
+
+    flex-direction:column;
+
+}
+
+.delete-btn,
+.cancel-btn{
+
+    width:100%;
+
+    text-align:center;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="delete-card">
+
+<div class="card-header">
+
+<i class="fa-solid fa-trash-can"></i>
+
+<h2>Delete Food</h2>
+
+<p>Food Management System</p>
+
+</div>
+
+<div class="card-body">
+
+<p>
+
+Are you sure you want to permanently delete
+
+<br>
+
+<span class="food-name">
+
+{{ food.food_name }}
+
+</span>
+
+?
+
+</p>
+
+<div class="warning">
+
+<i class="fa-solid fa-triangle-exclamation"></i>
+
+This action cannot be undone. The selected food item will be permanently removed from the system.
+
+</div>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="button-group">
+
+<button type="submit" class="delete-btn">
+
+<i class="fa-solid fa-trash"></i>
+
+Yes, Delete
+
+</button>
+
+<a href="{% url 'food_list' %}" class="cancel-btn">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Cancel
+
+</a>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

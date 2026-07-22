@@ -1,0 +1,644 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f8f9fb;
+    color:#333;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    background:#ffffff;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 8%;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo i{
+    color:#ff6b35;
+    font-size:30px;
+}
+
+.logo h2{
+    color:#222;
+    font-size:28px;
+}
+
+nav{
+    display:flex;
+    gap:25px;
+}
+
+nav a{
+    text-decoration:none;
+    color:#555;
+    font-weight:600;
+    transition:.3s;
+    position:relative;
+}
+
+nav a:hover,
+nav a.active{
+    color:#ff6b35;
+}
+
+nav a.active::after,
+nav a:hover::after{
+    content:'';
+    position:absolute;
+    left:0;
+    bottom:-6px;
+    width:100%;
+    height:3px;
+    background:#ff6b35;
+    border-radius:10px;
+}
+
+/* ================= TITLE ================= */
+
+.page-title{
+    text-align:center;
+    padding:60px 20px 30px;
+}
+
+.page-title h1{
+    font-size:48px;
+    color:#222;
+}
+
+.page-title p{
+    margin-top:10px;
+    color:#777;
+    font-size:18px;
+}
+
+/* ================= SEARCH ================= */
+
+.search-section{
+    display:flex;
+    justify-content:center;
+    margin-bottom:40px;
+}
+
+.search-section form{
+    width:90%;
+    max-width:600px;
+    display:flex;
+    background:white;
+    border-radius:50px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.search-section input{
+    flex:1;
+    border:none;
+    outline:none;
+    padding:18px 25px;
+    font-size:16px;
+}
+
+.search-section button{
+    width:70px;
+    border:none;
+    background:#ff6b35;
+    color:white;
+    cursor:pointer;
+    font-size:20px;
+    transition:.3s;
+}
+
+.search-section button:hover{
+    background:#e65b25;
+}
+
+/* ================= CATEGORY ================= */
+
+.categories{
+    width:90%;
+    margin:0 auto 40px;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.category-btn{
+    text-decoration:none;
+    color:#444;
+    background:white;
+    padding:12px 24px;
+    border-radius:50px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    transition:.3s;
+    font-weight:600;
+}
+
+.category-btn:hover{
+    background:#ff6b35;
+    color:white;
+}
+
+/* ================= FOOD GRID ================= */
+
+.foods{
+    width:90%;
+    max-width:1400px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+    padding-bottom:60px;
+}
+
+/* ================= CARD ================= */
+
+.food-card{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    transition:.35s;
+}
+
+.food-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 18px 35px rgba(0,0,0,.15);
+}
+
+.food-card img{
+    width:100%;
+    height:240px;
+    object-fit:cover;
+}
+
+.food-info{
+    padding:22px;
+}
+
+.food-info h3{
+    font-size:24px;
+    margin-bottom:10px;
+    color:#222;
+}
+
+.food-info p{
+    color:#666;
+    line-height:1.7;
+    margin-bottom:18px;
+}
+
+/* ================= PRICE ================= */
+
+.price{
+    font-size:28px;
+    color:#ff6b35;
+    font-weight:700;
+    margin-bottom:18px;
+}
+
+/* ================= STATUS ================= */
+
+.available,
+.not-available{
+    display:inline-block;
+    padding:8px 18px;
+    border-radius:30px;
+    font-size:14px;
+    font-weight:600;
+}
+
+.available{
+    background:#dff7e7;
+    color:#198754;
+}
+
+.not-available{
+    background:#fde2e4;
+    color:#dc3545;
+}
+
+/* ================= BUTTON ================= */
+
+.view-btn{
+    display:inline-block;
+    margin-top:20px;
+    width:100%;
+    text-align:center;
+    text-decoration:none;
+    background:#ff6b35;
+    color:white;
+    padding:14px;
+    border-radius:10px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.view-btn:hover{
+    background:#e65b25;
+}
+
+/* ================= EMPTY ================= */
+
+.foods h2{
+    grid-column:1/-1;
+    text-align:center;
+    color:#777;
+    padding:60px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:992px){
+
+    header{
+        flex-direction:column;
+        gap:20px;
+    }
+
+    nav{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .page-title h1{
+        font-size:36px;
+    }
+
+    .page-title p{
+        font-size:16px;
+    }
+
+    .foods{
+        grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    }
+
+}
+
+@media(max-width:500px){
+
+    header{
+        padding:15px;
+    }
+
+    .logo h2{
+        font-size:24px;
+    }
+
+    .search-section form{
+        width:95%;
+    }
+
+    .food-card img{
+        height:220px;
+    }
+
+}
+
+
+
+.footer{
+
+    background:#1E293B;
+
+    color:white;
+
+    margin-top:80px;
+
+    padding:50px 8%;
+}
+
+.footer-container{
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr 1fr;
+
+    gap:40px;
+}
+
+.footer h2{
+
+    color:#FF6B35;
+
+    margin-bottom:20px;
+}
+
+.footer h3{
+
+    margin-bottom:20px;
+}
+
+.footer a{
+
+    display:block;
+
+    color:white;
+
+    text-decoration:none;
+
+    margin-bottom:10px;
+
+    transition:.3s;
+}
+
+.footer a:hover{
+
+    color:#FF6B35;
+}
+
+.footer p{
+
+    margin-bottom:10px;
+
+    color:#ddd;
+}
+
+.footer hr{
+
+    margin:30px 0;
+
+    border:1px solid rgba(255,255,255,.2);
+}
+
+.copyright{
+
+    text-align:center;
+}
+
+
+
+/* ==========================================
+   RESPONSIVE DESIGN
+========================================== */
+
+/* Laptop */
+
+@media screen and (max-width:1200px){
+
+    .foods{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+}
+
+/* Tablet */
+
+@media screen and (max-width:992px){
+
+    header{
+        flex-direction:column;
+        gap:20px;
+        padding:20px;
+    }
+
+    nav{
+        width:100%;
+    }
+
+    nav{
+        justify-content:center;
+    }
+
+    nav a{
+        font-size:16px;
+    }
+
+    .page-title{
+        padding:40px 20px;
+    }
+
+    .page-title h1{
+        font-size:40px;
+    }
+
+    .search-section form{
+        width:90%;
+    }
+
+    .foods{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .category-container{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .footer-container{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+/* Mobile */
+
+@media screen and (max-width:768px){
+
+    header{
+        padding:15px;
+    }
+
+    .logo{
+        justify-content:center;
+    }
+
+    .logo h2{
+        font-size:24px;
+    }
+
+    nav{
+        display:flex;
+        justify-content:center;
+        flex-wrap:wrap;
+        gap:10px;
+    }
+
+    nav a{
+        font-size:15px;
+        padding:8px 12px;
+    }
+
+    .page-title h1{
+        font-size:32px;
+    }
+
+    .page-title p{
+        font-size:15px;
+    }
+
+    .search-section{
+        padding:0 15px;
+    }
+
+    .search-section form{
+        width:100%;
+    }
+
+    .search-section input{
+        padding:15px;
+        font-size:15px;
+    }
+
+    .search-section button{
+        width:60px;
+    }
+
+    .categories{
+        justify-content:flex-start;
+        overflow-x:auto;
+        flex-wrap:nowrap;
+        padding-bottom:10px;
+    }
+
+    .categories::-webkit-scrollbar{
+        height:6px;
+    }
+
+    .categories::-webkit-scrollbar-thumb{
+        background:#ff6b35;
+        border-radius:20px;
+    }
+
+    .category-btn{
+        white-space:nowrap;
+        padding:10px 20px;
+        font-size:14px;
+    }
+
+    .foods{
+        grid-template-columns:1fr;
+        gap:20px;
+    }
+
+    .food-card img{
+        height:230px;
+    }
+
+    .food-info h3{
+        font-size:22px;
+    }
+
+    .price{
+        font-size:24px;
+    }
+
+    .view-btn{
+        padding:12px;
+    }
+
+    .footer{
+        padding:40px 20px;
+    }
+
+    .footer-container{
+        grid-template-columns:1fr;
+        text-align:center;
+    }
+
+}
+
+/* Small Mobile */
+
+@media screen and (max-width:480px){
+
+    .logo i{
+        font-size:24px;
+    }
+
+    .logo h2{
+        font-size:22px;
+    }
+
+    nav{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    nav a{
+        width:100%;
+        text-align:center;
+    }
+
+    .page-title h1{
+        font-size:28px;
+    }
+
+    .page-title p{
+        font-size:14px;
+    }
+
+    .food-card img{
+        height:200px;
+    }
+
+    .food-info{
+        padding:18px;
+    }
+
+    .food-info h3{
+        font-size:20px;
+    }
+
+    .food-info p{
+        font-size:14px;
+    }
+
+    .price{
+        font-size:22px;
+    }
+
+    .view-btn{
+        font-size:15px;
+    }
+
+    .footer h2{
+        font-size:24px;
+    }
+
+    .footer h3{
+        font-size:18px;
+    }
+
+}
+
+/* Very Small Devices */
+
+@media screen and (max-width:360px){
+
+    .page-title h1{
+        font-size:24px;
+    }
+
+    .food-card img{
+        height:180px;
+    }
+
+    .food-info h3{
+        font-size:18px;
+    }
+
+    .price{
+        font-size:20px;
+    }
+
+}

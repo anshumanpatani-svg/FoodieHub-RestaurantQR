@@ -1,0 +1,278 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant QR Ordering System</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        <a href="{% url 'home' %}">
+            <i class="fa-solid fa-utensils"></i>
+            FoodieHub
+        </a>
+    </div>
+
+    <div class="menu-toggle" id="menu-toggle">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <nav id="nav-menu">
+
+        <div class="close-btn" id="close-menu">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+
+        <ul>
+
+            <li><a href="{% url 'home' %}">
+                <i class="fa-solid fa-house"></i> Home
+            </a></li>
+
+            <li><a href="{% url 'menu' %}">
+                <i class="fa-solid fa-utensils"></i> Menu
+            </a></li>
+
+            <li><a href="{% url 'cart' %}">
+                <i class="fa-solid fa-cart-shopping"></i> Cart
+            </a></li>
+
+            {% if request.session.order_id %}
+            <li>
+                <a href="{% url 'track_order' request.session.order_id %}">
+                    <i class="fa-solid fa-receipt"></i>
+                    Track Order
+                </a>
+            </li>
+            {% endif %}
+
+        </ul>
+
+    </nav>
+
+    <div class="table-box">
+
+        <i class="fa-solid fa-chair"></i>
+
+        Table {{ request.session.table_number|default:"--" }}
+
+    </div>
+
+</header>
+
+
+<!-- Hero Section -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h4>🍽 Welcome To FoodieHub</h4>
+
+        <h1>
+            Fresh & Delicious <br>
+            Food Everyday
+        </h1>
+
+        <p>
+            Scan the QR code, browse our menu,
+            and order your favorite meals in just a few clicks.
+        </p>
+
+        <div class="hero-search">
+
+            <form method="GET">
+
+                <input type="text"
+                    name="q"
+                    placeholder="Search food..."
+                    value="{{ request.GET.q }}">
+
+                <button type="submit">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                </button>
+
+            </form>
+
+        </div>
+
+        <a href="{% url 'menu' %}" class="menu-btn">
+            Explore Menu
+        </a>
+
+    </div>
+
+    <div class="hero-image">
+
+        <img src="{% static 'images/hero.png' %}" alt="Food">
+
+    </div>
+
+</section>
+
+<!-- Categories -->
+
+<section class="category">
+
+    <div class="title">
+
+        <h2>Food Categories</h2>
+
+        <p>Choose your favorite category</p>
+
+    </div>
+
+    <div class="category-container">
+
+        {% for category in categories %}
+
+        <div class="category-card">
+
+            <img src="{{ category.image.url }}" alt="{{ category.category_name }}">
+
+            <h3>{{ category.category_name }}</h3>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+</section>
+
+<!-- Popular Foods -->
+
+<section class="popular-food">
+
+    <div class="title">
+        <h2>Popular Foods</h2>
+        <p>Most loved dishes by our customers</p>
+    </div>
+
+    <div class="food-container">
+
+        {% for food in foods %}
+
+        <div class="food-card">
+
+            <img src="{{ food.image.url }}" alt="{{ food.food_name }}">
+
+            <h3>{{ food.food_name }}</h3>
+
+            <p>{{ food.description }}</p>
+
+            <div class="price-row">
+
+                <span class="price">₹{{ food.price }}</span>
+
+                <a href="{% url 'add_to_cart' food.id %}">
+                    <button>Add to Cart</button>
+                </a>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <h3>No Food Available</h3>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <div>
+
+            <h2>
+                <i class="fa-solid fa-utensils"></i>
+                FoodieHub
+            </h2>
+
+            <p>
+                Delicious food served with love.
+            </p>
+
+        </div>
+
+        <div>
+
+            <h3>Quick Links</h3>
+
+            <a href="{% url 'home' %}">Home</a>
+
+            <a href="{% url 'menu' %}">Menu</a>
+
+            <a href="{% url 'cart' %}">Cart</a>
+
+        </div>
+
+        <div>
+
+            <h3>Contact</h3>
+
+            <p>
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                Gandhinagar, Gujarat
+
+            </p>
+
+            <p>
+
+                <i class="fa-solid fa-phone"></i>
+
+                +91 9876543210
+
+            </p>
+
+            <p>
+
+                <i class="fa-solid fa-envelope"></i>
+
+                foodiehub@gmail.com
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    <p class="copyright">
+
+        © 2026 FoodieHub. All Rights Reserved.
+
+    </p>
+
+</footer>
+
+<script src="{% static 'js/script.js' %}"></script>
+
+</body>
+</html>

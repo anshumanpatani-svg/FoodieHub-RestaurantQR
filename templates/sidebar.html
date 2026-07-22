@@ -1,0 +1,280 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FoodieHub Sidebar</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+            background:#f5f7fa;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar{
+            position:fixed;
+            top:0;
+            left:0;
+            width:270px;
+            height:100vh;
+            background:linear-gradient(180deg,#ff6b35,#ff8c42);
+            color:white;
+            padding:25px 18px;
+            overflow-y:auto;
+            box-shadow:5px 0 25px rgba(0,0,0,.15);
+        }
+
+        /* Logo */
+
+        .logo{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:12px;
+            margin-bottom:45px;
+        }
+
+        .logo i{
+            font-size:36px;
+        }
+
+        .logo h2{
+            font-size:30px;
+            font-weight:700;
+        }
+
+        /* Navigation */
+
+        .sidebar ul{
+            list-style:none;
+        }
+
+        .sidebar ul li{
+            margin-bottom:12px;
+        }
+
+        .sidebar ul li a{
+            display:flex;
+            align-items:center;
+            gap:15px;
+            padding:16px 18px;
+            color:white;
+            text-decoration:none;
+            border-radius:12px;
+            transition:.3s;
+            font-size:17px;
+            font-weight:500;
+        }
+
+        .sidebar ul li a i{
+            width:25px;
+            text-align:center;
+            font-size:20px;
+        }
+
+        .sidebar ul li a:hover{
+            background:rgba(255,255,255,.18);
+            transform:translateX(8px);
+        }
+
+        /* Active Menu */
+
+        .sidebar ul li a.active{
+            background:#ffffff;
+            color:#ff6b35;
+            font-weight:600;
+            box-shadow:0 8px 20px rgba(0,0,0,.15);
+        }
+
+        .sidebar ul li a.active i{
+            color:#ff6b35;
+        }
+
+        .sidebar ul li a:hover{
+            background:rgba(255,255,255,.18);
+            transform:translateX(8px);
+        }
+
+        /* Footer */
+
+        .sidebar-footer{
+            position:absolute;
+            bottom:25px;
+            left:18px;
+            right:18px;
+        }
+
+        .sidebar-footer a{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:12px;
+            text-decoration:none;
+            color:white;
+            background:rgba(255,255,255,.15);
+            padding:15px;
+            border-radius:12px;
+            transition:.3s;
+        }
+
+        .sidebar-footer a:hover{
+            background:white;
+            color:#ff6b35;
+        }
+
+        /* Main Content */
+
+        .main-content{
+            margin-left:270px;
+            padding:40px;
+        }
+
+        /* Mobile */
+
+        @media(max-width:768px){
+
+        .sidebar{
+            width:80px;
+            padding:20px 10px;
+        }
+
+        .logo h2{
+            display:none;
+        }
+
+        .sidebar ul li a{
+            justify-content:center;
+            padding:18px;
+        }
+
+        .sidebar ul li a span{
+            display:none;
+        }
+
+        .sidebar ul li a i{
+            margin:0;
+            font-size:22px;
+        }
+
+        .sidebar-footer{
+            display:none;
+        }
+
+        .main-content{
+            margin-left:80px;
+        }
+
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="sidebar">
+
+    <div class="logo">
+
+        <i class="fa-solid fa-utensils"></i>
+
+        <h2>FoodieHub</h2>
+
+    </div>
+
+    <ul>
+
+        <li>
+            <a href="{% url 'kitchen_dashboard' %}"
+            class="{% if request.resolver_match.url_name == 'kitchen_dashboard' %}active{% endif %}">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Kitchen Dashboard</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'billing_dashboard' %}"
+            class="{% if request.resolver_match.url_name == 'billing_dashboard' %}active{% endif %}">
+                <i class="fa-solid fa-file-invoice-dollar"></i>
+                <span>Billing Dashboard</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'admin_dashboard' %}"
+            class="{% if request.resolver_match.url_name == 'admin_dashboard' %}active{% endif %}">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>Admin Dashboard</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'category_list' %}"
+            class="{% if request.resolver_match.url_name == 'category_list' %}active{% endif %}">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>Categories</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'food_list' %}"
+            class="{% if request.resolver_match.url_name == 'food_list' %}active{% endif %}">
+                <i class="fa-solid fa-burger"></i>
+                <span>Food Items</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'table_list' %}"
+            class="{% if request.resolver_match.url_name == 'table_list' %}active{% endif %}">
+                <i class="fa-solid fa-chair"></i>
+                <span>Restaurant Tables</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'order_list' %}"
+            class="{% if request.resolver_match.url_name == 'order_list' %}active{% endif %}">
+                <i class="fas fa-receipt"></i>
+                <span>Order Management</span>
+            </a>
+        </li>
+
+    </ul>
+
+    
+
+</div>
+
+<!-- <div class="main-content">
+
+    <h1>Dashboard</h1>
+
+    <p>
+        Your Kitchen or Billing page content goes here.
+    </p>
+
+</div> -->
+
+</body>
+
+</html>

@@ -1,0 +1,583 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Track Order</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#fff6f2,#f5f7fa);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:700px;
+    background:white;
+    border-radius:25px;
+    padding:40px;
+    box-shadow:0 15px 40px rgba(0,0,0,.12);
+    animation:fade .5s ease;
+}
+
+@keyframes fade{
+    from{
+        transform:translateY(30px);
+        opacity:0;
+    }
+    to{
+        transform:translateY(0);
+        opacity:1;
+    }
+}
+
+.title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.title h1{
+    color:#ff6b35;
+    font-size:38px;
+}
+
+.title p{
+    color:#666;
+    margin-top:8px;
+}
+
+/* Order Info */
+
+.info{
+    background:#fafafa;
+    border-radius:18px;
+    padding:25px;
+    margin-bottom:35px;
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    margin:15px 0;
+    font-size:18px;
+}
+
+.row strong{
+    color:#333;
+}
+
+.amount{
+    color:#28a745;
+    font-weight:700;
+}
+
+/* Timeline */
+
+.timeline{
+    display:flex;
+    justify-content:space-between;
+    position:relative;
+    margin-top:40px;
+}
+
+.timeline::before{
+    content:"";
+    position:absolute;
+    top:22px;
+    left:50px;
+    right:50px;
+    height:4px;
+    background:#ddd;
+    z-index:0;
+}
+
+.step{
+    position:relative;
+    z-index:1;
+    width:25%;
+    text-align:center;
+}
+
+.circle{
+    width:45px;
+    height:45px;
+    margin:auto;
+    border-radius:50%;
+    background:#ddd;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+    font-size:18px;
+}
+
+.step p{
+    margin-top:12px;
+    font-size:14px;
+    color:#555;
+    font-weight:600;
+}
+
+/* Active Status */
+
+.active .circle{
+    background:#ff6b35;
+}
+
+.completed .circle{
+    background:#28a745;
+}
+
+/* Current Status Box */
+
+.current-status{
+    margin-top:40px;
+    background:#ff6b35;
+    color:white;
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+}
+
+.current-status h2{
+    margin-top:10px;
+    font-size:30px;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+========================================== */
+
+/* Large Laptop */
+
+@media screen and (max-width:1200px){
+
+    .container{
+        max-width:650px;
+        padding:35px;
+    }
+
+    .title h1{
+        font-size:36px;
+    }
+
+}
+
+/* Tablet */
+
+@media screen and (max-width:992px){
+
+    body{
+        padding:30px;
+    }
+
+    .container{
+        width:95%;
+        padding:35px 30px;
+    }
+
+    .title h1{
+        font-size:34px;
+    }
+
+    .title p{
+        font-size:16px;
+    }
+
+    .row{
+        font-size:17px;
+    }
+
+    .current-status h2{
+        font-size:28px;
+    }
+
+}
+
+/* Mobile */
+
+@media screen and (max-width:768px){
+
+    body{
+        padding:20px;
+        align-items:flex-start;
+    }
+
+    .container{
+        width:100%;
+        padding:25px 20px;
+        border-radius:20px;
+    }
+
+    .title{
+        margin-bottom:25px;
+    }
+
+    .title h1{
+        font-size:30px;
+    }
+
+    .title p{
+        font-size:15px;
+    }
+
+    .info{
+        padding:20px;
+    }
+
+    .row{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:6px;
+        margin:15px 0;
+        font-size:16px;
+    }
+
+    .timeline{
+        flex-direction:column;
+        gap:20px;
+        margin-top:30px;
+    }
+
+    .timeline::before{
+        display:none;
+    }
+
+    .step{
+        width:100%;
+        display:flex;
+        align-items:center;
+        gap:15px;
+        text-align:left;
+    }
+
+    .circle{
+        margin:0;
+        width:42px;
+        height:42px;
+        flex-shrink:0;
+    }
+
+    .step p{
+        margin-top:0;
+        font-size:16px;
+    }
+
+    .current-status{
+        margin-top:30px;
+        padding:18px;
+    }
+
+    .current-status h2{
+        font-size:24px;
+    }
+
+}
+
+/* Small Mobile */
+
+@media screen and (max-width:480px){
+
+    body{
+        padding:15px;
+    }
+
+    .container{
+        padding:20px 15px;
+    }
+
+    .title h1{
+        font-size:26px;
+    }
+
+    .title p{
+        font-size:14px;
+    }
+
+    .info{
+        padding:15px;
+    }
+
+    .row{
+        text-align:center;
+        align-items:center;
+        font-size:15px;
+    }
+
+    .circle{
+        width:38px;
+        height:38px;
+        font-size:15px;
+    }
+
+    .step p{
+        font-size:15px;
+    }
+
+    .current-status{
+        padding:15px;
+    }
+
+    .current-status h2{
+        font-size:22px;
+    }
+
+}
+
+/* Very Small Mobile */
+
+@media screen and (max-width:360px){
+
+    .title h1{
+        font-size:22px;
+    }
+
+    .title p{
+        font-size:13px;
+    }
+
+    .row{
+        font-size:14px;
+    }
+
+    .circle{
+        width:34px;
+        height:34px;
+        font-size:14px;
+    }
+
+    .step p{
+        font-size:14px;
+    }
+
+    .current-status h2{
+        font-size:20px;
+    }
+
+}
+
+.toast{
+    position:fixed;
+    top:20px;
+    right:20px;
+    background:#28a745;
+    color:#fff;
+    padding:15px 25px;
+    border-radius:10px;
+    display:none;
+    box-shadow:0 10px 20px rgba(0,0,0,.2);
+    z-index:9999;
+    animation:fade .4s;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="title">
+
+<h1>🍽 Track Your Order</h1>
+
+<p>Your food is being prepared.</p>
+
+</div>
+
+<div class="info">
+
+<div class="row">
+<strong>Order Number</strong>
+<span>{{ order.order_number }}</span>
+</div>
+
+<div class="row">
+<strong>Table</strong>
+<span>{{ order.table.table_number }}</span>
+</div>
+
+<div class="row">
+<strong>Total Amount</strong>
+<span class="amount">₹{{ order.total_amount }}</span>
+</div>
+
+</div>
+
+<div class="timeline">
+
+    <div id="step1" class="step">
+        <div class="circle">1</div>
+        <p>Pending</p>
+    </div>
+
+    <div id="step2" class="step">
+        <div class="circle">2</div>
+        <p>Preparing</p>
+    </div>
+
+    <div id="step3" class="step">
+        <div class="circle">3</div>
+        <p>Ready</p>
+    </div>
+
+    <div id="step4" class="step">
+        <div class="circle">4</div>
+        <p>Completed</p>
+    </div>
+
+</div>
+
+<div class="current-status">
+
+Current Status
+
+<h2 id="currentStatus">{{ order.status }}</h2>
+
+</div>
+
+</div>
+
+<div id="toast" class="toast">
+
+Status Updated
+
+</div>
+
+<audio id="notify">
+
+<source src="{% static 'sounds/notification.mp3' %}" type="audio/mpeg">
+
+</audio>
+
+
+<script>
+
+const orderId={{ order.id }};
+
+let oldStatus="{{ order.status }}";
+
+function resetTimeline(){
+
+    document.getElementById("step1").className="step";
+    document.getElementById("step2").className="step";
+    document.getElementById("step3").className="step";
+    document.getElementById("step4").className="step";
+
+}
+
+function showToast(text){
+
+    let toast=document.getElementById("toast");
+
+    toast.innerHTML=text;
+
+    toast.style.display="block";
+
+    setTimeout(function(){
+
+        toast.style.display="none";
+
+    },3000);
+
+}
+
+function updateTimeline(status){
+
+    resetTimeline();
+
+    if(status=="Pending"){
+
+        step1.classList.add("completed");
+
+    }
+
+    else if(status=="Preparing"){
+
+        step1.classList.add("completed");
+
+        step2.classList.add("completed");
+
+    }
+
+    else if(status=="Ready"){
+
+        step1.classList.add("completed");
+
+        step2.classList.add("completed");
+
+        step3.classList.add("completed");
+
+    }
+
+    else{
+
+        step1.classList.add("completed");
+
+        step2.classList.add("completed");
+
+        step3.classList.add("completed");
+
+        step4.classList.add("completed");
+
+    }
+
+}
+
+function checkStatus(){
+
+fetch("/orders/status/"+orderId+"/")
+
+.then(response=>response.json())
+
+.then(data=>{
+
+document.getElementById("currentStatus").innerHTML=data.status;
+
+updateTimeline(data.status);
+
+if(oldStatus!=data.status){
+
+document.getElementById("notify").play();
+
+showToast("Order Status : "+data.status);
+
+oldStatus=data.status;
+
+}
+
+});
+
+}
+
+updateTimeline(oldStatus);
+
+setInterval(checkStatus,5000);
+
+</script>
+
+</body>
+</html>

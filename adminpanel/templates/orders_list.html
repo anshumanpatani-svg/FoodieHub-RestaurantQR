@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Order Management | FoodieHub</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#f5f7fb;
+}
+
+/* Main */
+
+.main-content{
+
+margin-left:270px;
+
+width:calc(100% - 270px);
+
+min-height:100vh;
+
+transition:.3s;
+
+}
+
+/* Header */
+
+.page-header{
+
+background:linear-gradient(135deg,#ff6b35,#ff914d);
+
+padding:35px;
+
+color:white;
+
+box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+}
+
+.page-header h2{
+
+font-size:34px;
+
+font-weight:700;
+
+margin-bottom:8px;
+
+}
+
+.page-header p{
+
+opacity:.9;
+
+margin:0;
+
+}
+
+/* Dashboard */
+
+.dashboard{
+
+padding:35px;
+
+}
+
+/* Cards */
+
+.stat-card{
+
+background:white;
+
+border-radius:18px;
+
+padding:25px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+transition:.3s;
+
+height:100%;
+
+}
+
+.stat-card:hover{
+
+transform:translateY(-6px);
+
+box-shadow:0 18px 35px rgba(0,0,0,.15);
+
+}
+
+.icon{
+
+width:65px;
+
+height:65px;
+
+border-radius:50%;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:26px;
+
+color:white;
+
+}
+
+.orange{background:#ff6b35;}
+.yellow{background:#ffc107;}
+.blue{background:#0d6efd;}
+.green{background:#198754;}
+.red{background:#dc3545;}
+
+.stat-card h6{
+
+color:#777;
+
+font-size:15px;
+
+margin-bottom:5px;
+
+}
+
+.stat-card h2{
+
+font-weight:700;
+
+margin:0;
+
+}
+
+/* Responsive */
+
+@media(max-width:992px){
+
+.main-content{
+
+margin-left:80px;
+
+width:calc(100% - 80px);
+
+}
+
+}
+
+@media(max-width:768px){
+
+.main-content{
+
+margin-left:80px;
+
+width:calc(100% - 80px);
+
+}
+
+.page-header{
+
+padding:25px;
+
+}
+
+.page-header h2{
+
+font-size:28px;
+
+}
+
+.dashboard{
+
+padding:15px;
+
+}
+
+}
+
+
+/* ==========================================
+   SEARCH & FILTER
+========================================== */
+
+.input-group{
+
+    border-radius:14px;
+
+    overflow:hidden;
+
+    background:#fff;
+
+}
+
+.input-group-text{
+
+    background:#fff;
+
+    border:none;
+
+}
+
+.form-control{
+
+    border:none !important;
+
+    box-shadow:none !important;
+
+    height:52px;
+
+}
+
+.form-select{
+
+    height:52px;
+
+    border-radius:14px;
+
+    border:none;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+/* ==========================================
+   TABLE
+========================================== */
+
+.card{
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+}
+
+.card-header{
+
+    border-bottom:1px solid #eee;
+
+}
+
+.table{
+
+    margin-bottom:0;
+
+}
+
+.table thead{
+
+    background:linear-gradient(135deg,#ff6b35,#ff914d);
+
+}
+
+.table thead th{
+
+    color:white;
+
+    font-weight:600;
+
+    border:none;
+
+    padding:18px;
+
+}
+
+.table tbody td{
+
+    padding:18px;
+
+    vertical-align:middle;
+
+}
+
+.table tbody tr{
+
+    transition:.3s;
+
+}
+
+.table tbody tr:hover{
+
+    background:#fff7f2;
+
+}
+
+/* ==========================================
+   STATUS BADGES
+========================================== */
+
+.badge{
+
+    font-size:13px;
+
+    padding:10px 15px;
+
+    font-weight:600;
+
+}
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.btn{
+
+    border-radius:30px;
+
+    transition:.3s;
+
+}
+
+.btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.btn-dark{
+
+    background:#1f2937;
+
+}
+
+.btn-dark:hover{
+
+    background:#111827;
+
+}
+
+/* ==========================================
+   PAGINATION
+========================================== */
+
+.pagination .page-link{
+
+    color:#ff6b35;
+
+    border:none;
+
+    margin:0 5px;
+
+    border-radius:10px;
+
+    padding:10px 16px;
+
+}
+
+.pagination .active .page-link{
+
+    background:#ff6b35;
+
+    color:white;
+
+}
+
+/* ==========================================
+   MOBILE RESPONSIVE
+========================================== */
+
+@media(max-width:992px){
+
+.main-content{
+
+    margin-left:80px;
+
+    width:calc(100% - 80px);
+
+}
+
+}
+
+@media(max-width:768px){
+
+.dashboard{
+
+    padding:15px;
+
+}
+
+.page-header{
+
+    text-align:center;
+
+    padding:25px;
+
+}
+
+.page-header h2{
+
+    font-size:28px;
+
+}
+
+.row>.col-lg-4,
+
+.row>.col-lg-8{
+
+    margin-bottom:15px;
+
+}
+
+.table{
+
+    min-width:900px;
+
+}
+
+.table-responsive{
+
+    overflow-x:auto;
+
+}
+
+}
+
+@media(max-width:576px){
+
+.page-header h2{
+
+    font-size:24px;
+
+}
+
+.stat-card{
+
+    padding:18px;
+
+}
+
+.stat-card h2{
+
+    font-size:26px;
+
+}
+
+.icon{
+
+    width:55px;
+
+    height:55px;
+
+    font-size:22px;
+
+}
+
+.btn{
+
+    width:100%;
+
+}
+
+}
+
+</style>
+
+</head>
+<body>
+
+{% include "sidebar.html" %}
+
+<div class="main-content">
+
+<div class="page-header">
+
+<h2>
+
+<i class="fas fa-receipt"></i>
+
+Order Management
+
+</h2>
+
+<p>
+
+Manage restaurant orders efficiently
+
+</p>
+
+</div>
+
+<div class="dashboard">
+
+<div class="row g-4">
+
+<div class="col-xl-3 col-md-6">
+
+<div class="stat-card">
+
+<div>
+
+<h6>Total Orders</h6>
+
+<h2>{{ total_orders }}</h2>
+
+</div>
+
+<div class="icon orange">
+
+<i class="fas fa-shopping-cart"></i>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-xl-3 col-md-6">
+
+<div class="stat-card">
+
+<div>
+
+<h6>Pending</h6>
+
+<h2>{{ pending_orders }}</h2>
+
+</div>
+
+<div class="icon red">
+
+<i class="fas fa-clock"></i>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-xl-2 col-md-4">
+
+<div class="stat-card">
+
+<div>
+
+<h6>Preparing</h6>
+
+<h2>{{ preparing_orders }}</h2>
+
+</div>
+
+<div class="icon yellow">
+
+<i class="fas fa-fire"></i>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-xl-2 col-md-4">
+
+<div class="stat-card">
+
+<div>
+
+<h6>Ready</h6>
+
+<h2>{{ ready_orders }}</h2>
+
+</div>
+
+<div class="icon blue">
+
+<i class="fas fa-bell-concierge"></i>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-xl-2 col-md-4">
+
+<div class="stat-card">
+
+<div>
+
+<h6>Completed</h6>
+
+<h2>{{ completed_orders }}</h2>
+
+</div>
+
+<div class="icon green">
+
+<i class="fas fa-circle-check"></i>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<br>
+
+<!-- Search & Filter -->
+
+<div class="card shadow-sm border-0 mb-4">
+
+<div class="card-body">
+
+<form method="GET">
+
+<div class="row g-3">
+
+<div class="col-lg-3">
+
+<input
+type="text"
+name="search"
+class="form-control"
+placeholder="Search Order Number"
+value="{{ search }}">
+
+</div>
+
+<div class="col-lg-2">
+
+<select
+name="status"
+class="form-select">
+
+<option value="">All Status</option>
+
+<option value="Pending"
+{% if selected_status == "Pending" %}selected{% endif %}>
+Pending
+</option>
+
+<option value="Preparing"
+{% if selected_status == "Preparing" %}selected{% endif %}>
+Preparing
+</option>
+
+<option value="Ready"
+{% if selected_status == "Ready" %}selected{% endif %}>
+Ready
+</option>
+
+<option value="Completed"
+{% if selected_status == "Completed" %}selected{% endif %}>
+Completed
+</option>
+
+</select>
+
+</div>
+
+<div class="col-lg-2">
+
+<select
+name="table"
+class="form-select">
+
+<option value="">All Tables</option>
+
+{% for t in tables %}
+
+<option
+value="{{ t.id }}"
+{% if selected_table == t.id|stringformat:"s" %}selected{% endif %}>
+
+Table {{ t.table_number }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="col-lg-2">
+
+<div class="form-check mt-2">
+
+<input
+class="form-check-input"
+type="checkbox"
+name="today"
+value="1"
+id="today"
+
+{% if today == "1" %}
+checked
+{% endif %}>
+
+<label
+class="form-check-label"
+for="today">
+
+Today's Orders
+
+</label>
+
+</div>
+
+</div>
+
+<div class="col-lg-3 d-flex gap-2">
+
+<button
+class="btn btn-warning w-100">
+
+<i class="fas fa-search"></i>
+
+Search
+
+</button>
+
+<a
+href="{% url 'order_list' %}"
+class="btn btn-secondary">
+
+Reset
+
+</a>
+
+</div>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+<!-- Orders Table -->
+
+<div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+
+<div class="card-header bg-white py-3">
+
+<h4 class="mb-0">
+
+<i class="fas fa-list text-warning"></i>
+
+Recent Orders
+
+</h4>
+
+</div>
+
+<div class="table-responsive">
+
+<table class="table table-hover align-middle">
+
+    <thead class="table-dark">
+
+        <tr>
+
+            <th>Order No</th>
+
+            <th>Table</th>
+
+            <th>Total</th>
+
+            <th>Status</th>
+
+            <th>Date & Time</th>
+
+            <th>Action</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody id="ordersTable">
+
+        {% include "order_table.html" %}
+
+    </tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<br>
+
+<!-- Pagination -->
+
+<!-- <nav class="mt-4">
+
+<ul class="pagination justify-content-center">
+
+<li class="page-item disabled">
+
+<a class="page-link">
+
+Previous
+
+</a>
+
+</li>
+
+<li class="page-item active">
+
+<a class="page-link">
+
+1
+
+</a>
+
+</li>
+
+<li class="page-item">
+
+<a class="page-link">
+
+2
+
+</a>
+
+</li>
+
+<li class="page-item">
+
+<a class="page-link">
+
+Next
+
+</a>
+
+</li>
+
+</ul>
+
+</nav> -->
+
+</div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script>
+$(function () {
+
+    function refreshOrders() {
+        $.ajax({
+            url: "{% url 'order_table_ajax' %}",
+            data: $("form").serialize(),
+            success: function (response) {
+                $("#ordersTable").html(response.html);
+            }
+        });
+    }
+
+    // Search button
+    $("form").on("submit", function (e) {
+        e.preventDefault();
+        refreshOrders();
+    });
+
+    // Live search while typing
+    $("input[name='search']").on("keyup", function () {
+        refreshOrders();
+    });
+
+    // Filters
+    $("select, input[name='today']").on("change", function () {
+        refreshOrders();
+    });
+
+    // Optional auto refresh every 10 seconds
+    // setInterval(refreshOrders, 10000);
+
+});
+</script>
+
+</body>
+</html>

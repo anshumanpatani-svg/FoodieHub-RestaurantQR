@@ -1,0 +1,90 @@
+{% for order in orders %}
+
+<tr>
+
+    <td>
+        <strong>{{ order.order_number }}</strong>
+    </td>
+
+    <td>
+        Table {{ order.table.table_number }}
+    </td>
+
+    <td>
+        ₹ {{ order.total_amount }}
+    </td>
+
+    <td>
+        {% if order.status == "Pending" %}
+
+            <span class="badge bg-danger">
+                <i class="fas fa-clock"></i>
+                Pending
+            </span>
+
+        {% elif order.status == "Preparing" %}
+
+            <span class="badge bg-warning text-dark">
+                <i class="fas fa-utensils"></i>
+                Preparing
+            </span>
+
+        {% elif order.status == "Ready" %}
+
+            <span class="badge bg-primary">
+                <i class="fas fa-bell"></i>
+                Ready
+            </span>
+
+        {% elif order.status == "Completed" %}
+
+            <span class="badge bg-success">
+                <i class="fas fa-check-circle"></i>
+                Completed
+            </span>
+
+        {% endif %}
+    </td>
+
+    <td>
+        {{ order.order_date|date:"d M Y" }}
+        <br>
+        <small class="text-muted">
+            {{ order.order_date|time:"h:i A" }}
+        </small>
+    </td>
+
+    <td>
+
+        <a href="{% url 'order_detail' order.id %}"
+           class="btn btn-dark btn-sm">
+
+            <i class="fas fa-eye"></i>
+
+            View
+
+        </a>
+
+    </td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+    <td colspan="6" class="text-center py-5">
+
+        <i class="fas fa-box-open fa-3x text-secondary mb-3"></i>
+
+        <h5>No Orders Found</h5>
+
+        <p class="text-muted">
+            There are no orders available.
+        </p>
+
+    </td>
+
+</tr>
+
+{% endfor %}

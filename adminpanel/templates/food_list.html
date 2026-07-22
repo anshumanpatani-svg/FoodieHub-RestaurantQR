@@ -1,0 +1,419 @@
+{% include "sidebar.html" %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Food Management | FoodieHub</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+}
+
+/* ================= MAIN ================= */
+
+.main-content{
+    margin-left:270px;
+    width:calc(100% - 270px);
+    min-height:100vh;
+    transition:.3s;
+}
+
+/* ================= HEADER ================= */
+
+.header{
+    background:linear-gradient(135deg,#ff6b35,#ff8c42);
+    color:white;
+    padding:30px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+}
+
+.header h1{
+    font-size:32px;
+}
+
+.add-btn{
+    text-decoration:none;
+    background:white;
+    color:#ff6b35;
+    padding:14px 22px;
+    border-radius:10px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.add-btn:hover{
+    background:#222;
+    color:white;
+}
+
+/* ================= GRID ================= */
+
+.container{
+    padding:35px;
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:25px;
+}
+
+/* ================= CARD ================= */
+
+.food-card{
+
+    background:white;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.food-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 18px 40px rgba(0,0,0,.15);
+
+}
+
+.food-card img{
+
+    width:100%;
+
+    height:220px;
+
+    object-fit:cover;
+
+}
+
+.content{
+
+    padding:20px;
+
+}
+
+.food-name{
+
+    font-size:24px;
+
+    font-weight:700;
+
+    color:#222;
+
+}
+
+.category{
+
+    color:#666;
+
+    margin-top:8px;
+
+}
+
+.price{
+
+    color:#28a745;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    margin:15px 0;
+
+}
+
+.status{
+
+    display:inline-block;
+
+    padding:8px 18px;
+
+    border-radius:30px;
+
+    color:white;
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+
+.available{
+
+    background:#28a745;
+
+}
+
+.unavailable{
+
+    background:#dc3545;
+
+}
+
+/* ================= BUTTONS ================= */
+
+.actions{
+
+    display:flex;
+
+    gap:12px;
+
+    margin-top:20px;
+
+}
+
+.actions a{
+
+    flex:1;
+
+    text-align:center;
+
+    text-decoration:none;
+
+    padding:12px;
+
+    color:white;
+
+    border-radius:8px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.edit{
+
+    background:#0d6efd;
+
+}
+
+.delete{
+
+    background:#dc3545;
+
+}
+
+.actions a:hover{
+
+    opacity:.9;
+
+    transform:translateY(-2px);
+
+}
+
+/* ================= EMPTY ================= */
+
+.empty{
+
+    grid-column:1/-1;
+
+    background:white;
+
+    padding:80px;
+
+    border-radius:15px;
+
+    text-align:center;
+
+    font-size:24px;
+
+    color:#777;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:992px){
+
+.main-content{
+
+    margin-left:80px;
+
+    width:calc(100% - 80px);
+
+}
+
+}
+
+@media(max-width:768px){
+
+.main-content{
+
+    margin-left:80px;
+
+    width:calc(100% - 80px);
+
+}
+
+.header{
+
+    padding:20px;
+
+}
+
+.header h1{
+
+    font-size:26px;
+
+    margin-bottom:15px;
+
+}
+
+.container{
+
+    padding:15px;
+
+    grid-template-columns:1fr;
+
+}
+
+.food-card img{
+
+    height:180px;
+
+}
+
+.actions{
+
+    flex-direction:column;
+
+}
+
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="main-content">
+
+<div class="header">
+
+<h1>
+<i class="fa-solid fa-burger"></i>
+Food Management
+</h1>
+
+<a href="{% url 'food_add' %}" class="add-btn">
+
+<i class="fa-solid fa-plus"></i>
+
+Add New Food
+
+</a>
+
+</div>
+
+<div class="container">
+
+{% for food in foods %}
+
+<div class="food-card">
+
+<img src="{{ food.image.url }}" alt="{{ food.food_name }}">
+
+<div class="content">
+
+<div class="food-name">
+{{ food.food_name }}
+</div>
+
+<div class="category">
+
+<i class="fa-solid fa-layer-group"></i>
+
+{{ food.category.category_name }}
+
+</div>
+
+<div class="price">
+
+₹{{ food.price }}
+
+</div>
+
+{% if food.available %}
+
+<span class="status available">
+Available
+</span>
+
+{% else %}
+
+<span class="status unavailable">
+Unavailable
+</span>
+
+{% endif %}
+
+<div class="actions">
+
+<a href="{% url 'food_edit' food.id %}" class="edit">
+
+<i class="fa-solid fa-pen"></i>
+
+Edit
+
+</a>
+
+<a href="{% url 'food_delete' food.id %}" class="delete">
+
+<i class="fa-solid fa-trash"></i>
+
+Delete
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<div class="empty">
+
+🍔 No Food Items Found
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+</body>
+
+</html>

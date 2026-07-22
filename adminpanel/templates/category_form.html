@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>{{ title }} | FoodieHub</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:25px;
+}
+
+/* Card */
+
+.form-card{
+
+    width:100%;
+    max-width:650px;
+
+    background:white;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.12);
+
+}
+
+/* Header */
+
+.card-header{
+
+    background:linear-gradient(135deg,#ff6b35,#ff914d);
+
+    color:white;
+
+    text-align:center;
+
+    padding:35px;
+
+}
+
+.card-header i{
+
+    font-size:55px;
+
+    margin-bottom:15px;
+
+}
+
+.card-header h2{
+
+    font-size:32px;
+
+    font-weight:700;
+
+}
+
+.card-header p{
+
+    margin-top:8px;
+
+    opacity:.9;
+
+}
+
+/* Body */
+
+.card-body{
+
+    padding:35px;
+
+}
+
+/* Django Form */
+
+.card-body p{
+
+    margin-bottom:22px;
+
+}
+
+.card-body label{
+
+    display:block;
+
+    font-weight:600;
+
+    margin-bottom:8px;
+
+    color:#333;
+
+}
+
+.card-body input,
+.card-body select,
+.card-body textarea{
+
+    width:100%;
+
+    padding:13px 15px;
+
+    border:1px solid #dcdcdc;
+
+    border-radius:10px;
+
+    outline:none;
+
+    font-size:15px;
+
+    transition:.3s;
+
+}
+
+.card-body input:focus,
+.card-body select:focus,
+.card-body textarea:focus{
+
+    border-color:#ff6b35;
+
+    box-shadow:0 0 10px rgba(255,107,53,.2);
+
+}
+
+.card-body input[type=file]{
+
+    padding:10px;
+
+    background:#fafafa;
+
+}
+
+/* Buttons */
+
+.button-group{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    margin-top:30px;
+
+    flex-wrap:wrap;
+
+}
+
+.save-btn{
+
+    background:#ff6b35;
+
+    color:white;
+
+    border:none;
+
+    padding:14px 35px;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.save-btn:hover{
+
+    background:#e85a24;
+
+    transform:translateY(-2px);
+
+}
+
+.cancel-btn{
+
+    background:#6c757d;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:14px 35px;
+
+    border-radius:10px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.cancel-btn:hover{
+
+    background:#495057;
+
+    transform:translateY(-2px);
+
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+.card-header{
+
+    padding:25px;
+
+}
+
+.card-header h2{
+
+    font-size:26px;
+
+}
+
+.card-body{
+
+    padding:25px;
+
+}
+
+.button-group{
+
+    flex-direction:column;
+
+}
+
+.save-btn,
+.cancel-btn{
+
+    width:100%;
+
+    text-align:center;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="form-card">
+
+<div class="card-header">
+
+<i class="fa-solid fa-layer-group"></i>
+
+<h2>{{ title }}</h2>
+
+<p>Create or update your food category</p>
+
+</div>
+
+<div class="card-body">
+
+<form method="POST" enctype="multipart/form-data">
+
+{% csrf_token %}
+
+{{ form.as_p }}
+
+<div class="button-group">
+
+<button type="submit" class="save-btn">
+
+<i class="fa-solid fa-floppy-disk"></i>
+
+Save Category
+
+</button>
+
+<a href="{% url 'category_list' %}" class="cancel-btn">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Back
+
+</a>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

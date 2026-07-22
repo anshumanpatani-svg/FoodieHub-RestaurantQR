@@ -1,0 +1,548 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Shopping Cart</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+            background:#f5f7fa;
+        }
+
+        h1{
+            text-align:center;
+            margin:35px 0;
+            color:#222;
+            font-size:38px;
+            font-weight:700;
+        }
+
+        .container{
+            width:90%;
+            max-width:1100px;
+            margin:auto;
+        }
+
+        /* Product Card */
+
+        .card{
+            background:#fff;
+            border-radius:18px;
+            box-shadow:0 10px 25px rgba(0,0,0,.08);
+            display:flex;
+            align-items:center;
+            gap:25px;
+            padding:20px;
+            margin-bottom:20px;
+            transition:.3s;
+        }
+
+        .card:hover{
+            transform:translateY(-3px);
+            box-shadow:0 15px 35px rgba(0,0,0,.12);
+        }
+
+        .card img{
+            width:150px;
+            height:150px;
+            object-fit:cover;
+            border-radius:15px;
+            border:1px solid #eee;
+        }
+
+        .details{
+            flex:1;
+        }
+
+        .details h2{
+            color:#222;
+            margin-bottom:10px;
+            font-size:28px;
+        }
+
+        .details p{
+            color:#666;
+            font-size:20px;
+            margin-bottom:20px;
+            font-weight:600;
+        }
+
+        /* Quantity */
+
+        .qty{
+            display:flex;
+            align-items:center;
+            gap:15px;
+        }
+
+        .qty button{
+            width:42px;
+            height:42px;
+            border:none;
+            border-radius:50%;
+            background:#ff6b35;
+            color:#fff;
+            font-size:22px;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        .qty button:hover{
+            background:#e6521a;
+        }
+
+        .qty span{
+            width:40px;
+            text-align:center;
+            font-size:22px;
+            font-weight:bold;
+        }
+
+        /* Remove */
+
+        .remove-btn{
+            margin-top:20px;
+            background:#dc3545;
+            color:#fff;
+            border:none;
+            padding:12px 24px;
+            border-radius:8px;
+            cursor:pointer;
+            font-size:16px;
+            transition:.3s;
+        }
+
+        .remove-btn:hover{
+            background:#bb2d3b;
+        }
+
+        /* Summary Card */
+
+        .summary-card{
+            width:90%;
+            max-width:1100px;
+            margin:30px auto;
+            background:#fff;
+            border-radius:18px;
+            box-shadow:0 10px 25px rgba(0,0,0,.08);
+            padding:30px;
+        }
+
+        .summary-row{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin:18px 0;
+        }
+
+        .summary-row h5{
+            font-size:22px;
+            color:#555;
+            font-weight:600;
+        }
+
+        .summary-row h3{
+            font-size:30px;
+        }
+
+        .summary-row:last-child h3{
+            color:#28a745;
+        }
+
+        hr{
+            border:none;
+            border-top:1px solid #ddd;
+            margin:20px 0;
+        }
+
+        /* Checkout */
+
+        .checkout{
+            margin-top:30px;
+            text-align:right;
+        }
+
+        .checkout-btn{
+            background:#28a745;
+            color:white;
+            border:none;
+            padding:15px 45px;
+            border-radius:10px;
+            font-size:20px;
+            cursor:pointer;
+            transition:.3s;
+            font-weight:600;
+        }
+
+        .checkout-btn:hover{
+            background:#218838;
+        }
+
+        /* Empty Cart */
+
+        .empty-cart{
+            background:white;
+            padding:60px;
+            text-align:center;
+            border-radius:15px;
+            box-shadow:0 10px 25px rgba(0,0,0,.08);
+        }
+
+        .empty-cart h2{
+            color:#666;
+        }
+
+        /* ==========================================
+        RESPONSIVE DESIGN
+        ========================================== */
+
+        /* Large Laptop */
+
+        @media screen and (max-width:1200px){
+
+            .container,
+            .summary-card{
+                width:95%;
+            }
+
+        }
+
+        /* Tablet */
+
+        @media screen and (max-width:992px){
+
+            h1{
+                font-size:34px;
+            }
+
+            .card{
+                gap:20px;
+            }
+
+            .card img{
+                width:130px;
+                height:130px;
+            }
+
+            .details h2{
+                font-size:24px;
+            }
+
+            .details p{
+                font-size:18px;
+            }
+
+            .summary-row h5{
+                font-size:20px;
+            }
+
+            .summary-row h3{
+                font-size:26px;
+            }
+
+        }
+
+        /* Mobile */
+
+        @media screen and (max-width:768px){
+
+            body{
+                padding:15px 0;
+            }
+
+            h1{
+                font-size:30px;
+                margin-bottom:25px;
+            }
+
+            .container{
+                width:95%;
+            }
+
+            .card{
+                flex-direction:column;
+                text-align:center;
+                padding:20px;
+            }
+
+            .card img{
+                width:220px;
+                height:220px;
+            }
+
+            .details{
+                width:100%;
+            }
+
+            .details h2{
+                font-size:24px;
+            }
+
+            .details p{
+                font-size:18px;
+            }
+
+            .qty{
+                justify-content:center;
+            }
+
+            .qty button{
+                width:45px;
+                height:45px;
+            }
+
+            .summary-card{
+                width:95%;
+                padding:25px 20px;
+            }
+
+            .summary-row{
+                font-size:18px;
+            }
+
+            .summary-row h5{
+                font-size:18px;
+            }
+
+            .summary-row h3{
+                font-size:22px;
+            }
+
+            .checkout{
+                text-align:center;
+            }
+
+            .checkout-btn{
+                width:100%;
+                padding:16px;
+                font-size:18px;
+            }
+
+        }
+
+        /* Small Mobile */
+
+        @media screen and (max-width:480px){
+
+            h1{
+                font-size:26px;
+            }
+
+            .card{
+                padding:18px;
+            }
+
+            .card img{
+                width:180px;
+                height:180px;
+            }
+
+            .details h2{
+                font-size:20px;
+            }
+
+            .details p{
+                font-size:16px;
+            }
+
+            .qty{
+                gap:10px;
+            }
+
+            .qty button{
+                width:40px;
+                height:40px;
+                font-size:18px;
+            }
+
+            .qty span{
+                width:35px;
+                font-size:18px;
+            }
+
+            .remove-btn{
+                width:100%;
+                padding:12px;
+                font-size:15px;
+            }
+
+            .summary-card{
+                padding:20px 15px;
+            }
+
+            .summary-row{
+                flex-direction:column;
+                gap:8px;
+                text-align:center;
+            }
+
+            .summary-row h5{
+                font-size:16px;
+            }
+
+            .summary-row h3{
+                font-size:20px;
+            }
+
+            .checkout-btn{
+                font-size:16px;
+            }
+
+        }
+
+        /* Very Small Devices */
+
+        @media screen and (max-width:360px){
+
+            h1{
+                font-size:22px;
+            }
+
+            .card img{
+                width:150px;
+                height:150px;
+            }
+
+            .details h2{
+                font-size:18px;
+            }
+
+            .details p{
+                font-size:15px;
+            }
+
+            .qty button{
+                width:36px;
+                height:36px;
+                font-size:16px;
+            }
+
+            .qty span{
+                font-size:16px;
+            }
+
+            .summary-row h5{
+                font-size:15px;
+            }
+
+            .summary-row h3{
+                font-size:18px;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+<h1 align="center">Shopping Cart</h1>
+
+<div class="container">
+
+{% for item in cart_items %}
+
+<div class="card">
+
+    <img src="{{ item.food.image.url }}">
+
+    <div class="details">
+
+        <h2>{{ item.food.food_name }}</h2>
+
+        <p>Price : ₹{{ item.food.price }}</p>
+
+        <!-- <h3>Subtotal : ₹{{ item.subtotal }}</h3> -->
+
+        <div class="qty">
+
+            <a href="{% url 'decrease_cart' item.food.id %}">
+
+                <button>-</button>
+
+            </a>
+
+            <span>{{ item.quantity }}</span>
+
+            <a href="{% url 'increase_cart' item.food.id %}">
+
+                <button>+</button>
+
+            </a>
+
+        </div>
+
+        <br>
+
+        <a href="{% url 'remove_cart' item.food.id %}">
+
+            <button class="remove-btn">
+
+                Remove
+
+            </button>
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+<hr>
+
+</div>
+
+<div class="summary-card">
+    <div class="card-body">
+
+        <div class="summary-row">
+            <h5>Subtotal</h5>
+            <h5>₹{{ subtotal }}</h5>
+        </div>
+
+        <div class="summary-row">
+            <h5>GST (5%)</h5>
+            <h5>₹{{ gst }}</h5>
+        </div>
+
+        <hr>
+
+        <div class="summary-row">
+            <h3>Grand Total</h3>
+            <h3 style="color:#28a745;">
+                ₹{{ grand_total }}
+            </h3>
+        </div>
+
+    </div>
+    <div class="checkout">
+
+        <a href="{% url 'checkout' %}">
+
+            <button class="checkout-btn">
+
+                Checkout
+
+            </button>
+
+        </a>
+
+    </div>
+</div>
+
+
+
+</body>
+</html>

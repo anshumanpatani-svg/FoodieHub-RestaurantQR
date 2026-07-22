@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Billing Dashboard</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+            background:#f4f7fb;
+            display:flex;
+        }
+
+        .page-content{
+            margin-left:270px;
+            width:calc(100% - 270px);
+            min-height:100vh;
+            transition:.3s;
+        }
+
+        /* Header */
+
+        .header{
+            background:#ff6b35;
+            color:#fff;
+            padding:25px;
+            text-align:center;
+            box-shadow:0 5px 15px rgba(0,0,0,.15);
+        }
+
+        .header h1{
+            font-size:36px;
+        }
+
+        /* Container */
+
+        .container{
+            padding:30px;
+            width:100%;
+            max-width:1400px;
+            margin:auto;
+        }
+
+        /* Card */
+
+        .card{
+            background:#fff;
+            border-radius:18px;
+            overflow:hidden;
+            box-shadow:0 10px 30px rgba(0,0,0,.08);
+            width:100%;
+        }
+
+        /* Table */
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            min-width:900px;
+        }
+
+        .table-responsive{
+            overflow-x:auto;
+        }
+
+        thead{
+            background:#ff6b35;
+            color:white;
+        }
+
+        thead th{
+            padding:18px;
+            font-size:16px;
+            text-align:left;
+        }
+
+        tbody td{
+            padding:18px;
+            border-bottom:1px solid #eee;
+        }
+
+        tbody tr:hover{
+            background:#fff5f1;
+        }
+
+        /* Bill Number */
+
+        .bill-id{
+            font-weight:bold;
+            color:#ff6b35;
+        }
+
+        /* Amount */
+
+        .amount{
+            color:#28a745;
+            font-weight:bold;
+            font-size:17px;
+        }
+
+        /* Status */
+
+        .status{
+            display:inline-block;
+            padding:7px 16px;
+            border-radius:25px;
+            color:white;
+            font-size:14px;
+            font-weight:600;
+        }
+
+        .paid{
+            background:#28a745;
+        }
+
+        .unpaid{
+            background:#dc3545;
+        }
+
+        /* Button */
+
+        .view-btn{
+            display:inline-block;
+            text-decoration:none;
+            background:#007bff;
+            color:white;
+            padding:10px 18px;
+            border-radius:8px;
+            transition:.3s;
+        }
+
+        .view-btn:hover{
+            background:#0056b3;
+        }
+
+        /* Responsive */
+
+        @media(max-width:992px){
+
+        .page-content{
+            margin-left:80px;
+            width:calc(100% - 80px);
+        }
+
+        .container{
+            padding:20px;
+        }
+
+        }
+
+        @media(max-width:768px){
+
+        .page-content{
+            margin-left:80px;
+            width:calc(100% - 80px);
+        }
+
+        .header h1{
+            font-size:28px;
+        }
+
+        .container{
+            padding:12px;
+        }
+
+        .card{
+            border-radius:12px;
+        }
+
+        table{
+            min-width:700px;
+        }
+
+        .view-btn{
+            padding:8px 12px;
+            font-size:14px;
+        }
+
+        .status{
+            padding:6px 12px;
+            font-size:13px;
+        }
+
+        }
+
+    </style>
+
+</head>
+<body>
+{% include "sidebar.html" %}
+
+<div class="page-content">
+
+    <div class="header">
+        <h1>Billing Dashboard</h1>
+    </div>
+
+    <div class="container">
+
+        <div class="card">
+
+            <div class="table-responsive">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                        <th>Bill ID</th>
+                        <th>Order No.</th>
+                        <th>Table</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Invoice</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for bill in bills %}
+
+                        <tr>
+
+                            <td class="bill-id">#{{ bill.id }}</td>
+
+                            <td>{{ bill.order.order_number }}</td>
+
+                            <td>Table {{ bill.order.table.table_number }}</td>
+
+                            <td class="amount">₹{{ bill.grand_total }}</td>
+
+                            <td>
+
+                                {% if bill.payment_status == "Paid" %}
+
+                                    <span class="status paid">
+                                        Paid
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="status unpaid">
+                                        Unpaid
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+
+                                <a href="{% url 'invoice' bill.id %}" class="view-btn">
+                                    View Invoice
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                        {% empty %}
+
+                        <tr>
+
+                            <td colspan="6" style="text-align:center;padding:40px;">
+                            No Bills Found
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
